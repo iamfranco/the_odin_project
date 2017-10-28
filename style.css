@@ -1,0 +1,22 @@
+body {
+  font-family: 'Saira Semi Condensed', sans-serif;
+}
+
+.container {
+  width: 450px;
+  margin: 0 auto;
+}
+
+li {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+a {
+  color: #888;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #333;
+}
