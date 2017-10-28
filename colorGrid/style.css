@@ -1,0 +1,38 @@
+body {
+  background: #fdb;
+}
+
+.container {
+  /*width: 960px;*/
+  /*height: 960px;*/
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-shadow: 0 3px 10px -5px grey;
+}
+
+.grid {
+  position: absolute;
+  opacity: 0;
+  background: #023;
+}
+
+.custom-btn {
+  width: 140px;
+  margin: 10px auto;
+  display: block;
+  font-size: 20px;
+  padding: 10px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  font-family: 'Saira Semi Condensed', sans-serif;
+}
+
+.custom-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
