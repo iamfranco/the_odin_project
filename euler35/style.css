@@ -25,6 +25,7 @@ input:hover {
 }
 input:focus {
   outline: none;
+  border: 2px solid #aaa;
 }
 
 
