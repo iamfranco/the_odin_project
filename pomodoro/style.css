@@ -147,7 +147,7 @@ body.breaking {
   position: absolute;
   top: 50vh;
   left: 50vw;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
 }
 
 .container.inactive {
