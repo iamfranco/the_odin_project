@@ -125,6 +125,7 @@ body.breaking {
 
 .sessionTimeContainer .btn.inactive {
   opacity: 0.3;
+  cursor: default;
 }
 
 .sessionName {

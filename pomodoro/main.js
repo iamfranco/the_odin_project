@@ -1,13 +1,15 @@
 // default values (unit: minute)
 var workTime = 25;
 var breakTime = 5;
-var timeChange = 5;
+var workTimeChange = 5;
+var breakTimeChange = 1;
 var maxTime = 99;
 
 // rescale default values (minute to milliseconds)
 workTime *= 60*1000;
 breakTime *= 60*1000;
-timeChange *= 60*1000;
+workTimeChange *= 60*1000;
+breakTimeChange *= 60*1000;
 maxTime *= 60*1000;
 
 //////////////// model //////////////////
@@ -87,29 +89,29 @@ function toggleMenu() {
   container.classList.toggle('inactive');
 }
 function workInc() {
-  if (workTime + timeChange <= maxTime) {
-    workTime += timeChange;
+  if (workTime + workTimeChange <= maxTime) {
+    workTime += workTimeChange;
     displayWorkTime();
   }
   updateAllBtn();
 }
 function workDec() {
-  if (workTime >= timeChange) {
-    workTime -= timeChange;
+  if (workTime >= workTimeChange) {
+    workTime -= workTimeChange;
     displayWorkTime();
   }
   updateAllBtn();
 }
 function breakInc() {
-  if (breakTime + timeChange <= maxTime) {
-    breakTime += timeChange;
+  if (breakTime + breakTimeChange <= maxTime) {
+    breakTime += breakTimeChange;
     displayBreakTime();
   }
   updateAllBtn();
 }
 function breakDec() {
-  if (breakTime >= timeChange){
-    breakTime -= timeChange;
+  if (breakTime >= breakTimeChange){
+    breakTime -= breakTimeChange;
     displayBreakTime();
   }
   updateAllBtn();
