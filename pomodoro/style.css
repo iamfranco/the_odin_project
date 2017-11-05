@@ -154,32 +154,6 @@ body.breaking {
   pointer-events: none;
 }
 
-.currentSessionBtn {
-  font-size: 36px;
-  height: 50px;
-  overflow: hidden;
-}
-
-.currentSessionBtn .sessionWords {
-  transition: all 0.5s ease;
-}
-
-.currentSessionBtn .sessionWords.breaking {
-  transform: translateY(-50%);
-}
-
-.timeView {
-  font-size: 130px;
-  width: 100%;
-  text-align: left;
-  margin: 0 auto;
-  transition: all 0.2s ease;
-}
-
-.timeView.pausing {
-  opacity: 0.6;
-}
-
 .pauseBtn {
   width: 40px;
   height: 40px;
@@ -199,6 +173,20 @@ body.breaking {
   background: url('res/play.svg');
 }
 
+.currentSessionBtn {
+  font-size: 36px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.currentSessionBtn .sessionWords {
+  transition: all 0.5s ease;
+}
+
+.currentSessionBtn .sessionWords.breaking {
+  transform: translateY(-50%);
+}
+
 .restartBtn {
   width: 40px;
   height: 40px;
@@ -212,5 +200,30 @@ body.breaking {
 .restartBtn:hover {
   transform: rotate(90deg);
   opacity: 0.8;
+}
+
+.timeView {
+  font-size: 130px;
+  width: 100%;
+  text-align: left;
+  margin: 0 auto;
+  transition: all 0.2s ease;
+}
+
+.timeView.pausing {
+  opacity: 0.6;
+}
+
+.timeBar {
+  height: 5px;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.timeBar--back {
+  height: 5px;
+  width: 100%;
+  background: rgba(0,0,0,0.2);
 }
 /* END Main Timer display unit */

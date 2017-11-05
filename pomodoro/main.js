@@ -4,16 +4,20 @@ var breakTime = 5;
 var timeChange = 5;
 var maxTime = 99;
 
-// rescale default values (minute to seconds)
-workTime *= 60;
-breakTime *= 60;
-timeChange *= 60;
-maxTime *= 60;
+// rescale default values (minute to milliseconds)
+workTime *= 60*1000;
+breakTime *= 60*1000;
+timeChange *= 60*1000;
+maxTime *= 60*1000;
 
 //////////////// model //////////////////
+var duration = workTime;
 var seconds = workTime;
 var pausing = false;
+var restarted = false;
+var pausedTime;
 var workSession = true;
+var startTime = Date.now();
 
 
 //////////////// view ///////////////////
@@ -27,11 +31,14 @@ var pauseBtn = $('.pauseBtn');
 
 var container = $('.container');
 var timeView = $('.timeView');
+var timeBar = $('.timeBar');
 var workTimeView = $('.workTimeView');
 var breakTimeView = $('.breakTimeView');
 var currentSessionBtn = $('.currentSessionBtn');
 var sessionBtn__words = $('.sessionWords');
-function displayTime() {timeView.innerHTML = timeString()}
+
+function displayTime() {timeView.innerHTML = timeString(); updateTimeBar()}
+function updateTimeBar() {timeBar.style.width = (seconds/duration*100).toFixed(2) + '%';}
 function displayWorkTime() {workTimeView.innerHTML = sessionTimeString(workTime)}
 function displayBreakTime() {breakTimeView.innerHTML = sessionTimeString(breakTime)}
 
@@ -111,10 +118,23 @@ function togglePause() {
   pausing = !pausing;
   pauseBtn.classList.toggle('pausing');
   timeView.classList.toggle('pausing');
+  if (!pausing & !restarted) {
+    startTime += Date.now() - pausedTime;
+  }
+  if (!pausing & restarted) {
+    startTime = Date.now();
+    restarted = false;
+  }
+  if (pausing) {
+    pausedTime = Date.now();
+  }
+
 }
 function restartTimer() {
-  if (workSession) seconds = workTime;
-  else seconds = breakTime;
+  startTime = Date.now();
+  if (pausing) restarted = true;
+  duration = workSession? workTime : breakTime;
+  seconds = duration;
   displayTime();
 }
 
@@ -126,16 +146,21 @@ displayWorkTime();
 displayBreakTime();
 
 // periodic execution
-window.setInterval(tick, 1000);
+window.setInterval(tick, 111);
 function tick() {
-  if (seconds == 0) toggleSession();
-  else if (!pausing) seconds -= 1;
+  if (seconds <= 0) toggleSession();
+  else if (!pausing) {
+    var timeDiff = Date.now() - startTime;
+    seconds = duration - timeDiff;
+  }
   displayTime();
 }
 
 function toggleSession() {
+  startTime = Date.now();
   workSession = !workSession;
-  seconds = workSession ? workTime : breakTime;
+  duration = workSession ? workTime : breakTime;
+  seconds = duration;
   // session style
   document.title = workSession ? 'Pomodoro - Work' : 'Pomodoro - Break'
   $('body').classList.toggle('breaking');
@@ -153,7 +178,7 @@ function $(x) {return document.querySelector(x)}
 
 // seconds (from model) -> "HH:MM:SS"
 function timeString() {
-  var s = seconds;
+  var s = Math.ceil(seconds/1000);
   var m = Math.floor(s/60);
   s %= 60;
   return timeFormat([m,s])
@@ -164,4 +189,4 @@ function timeString() {
   function timeFormat(arr) {return arr.map(twoDigit).join(":")}
 }
 
-function sessionTimeString(s) {return Math.floor(s/60)}
+function sessionTimeString(s) {return Math.floor(s/60/1000)}
